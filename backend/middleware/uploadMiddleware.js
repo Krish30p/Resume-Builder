@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
 });
 
 //file filter
-const filefilter = (req, file , cb) =>{
+const fileFilter = (req, file , cb) =>{
     const allowedTypes =["iamges/jpeg", "iamges/png", "iamges/png",];
     if (allowedTypes.includes(file.mimetype)){
         cb (null, true)

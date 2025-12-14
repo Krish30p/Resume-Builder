@@ -6,6 +6,7 @@ import userRouter from './routes/userRoutes.js';
 
 import path from 'path'
 import { fileURLToPath } from 'url';
+import resumeRoutes from'./routes/resumeRoutes.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +25,13 @@ app.use(express.json())
 
 // error due to this!! (userRouter)      part of middleware
 app.use('/api/auth', userRouter)
+app.use('/api/resume', resumeRoutes)
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'),{
+    setHeaders:(res, _path)=>{
+        res.set('Access-Control-Allow-Origin', 'http://localhost:5173/')
+    }
+}))
 
 // routes
 app.get('/', (req, res) =>{

@@ -75,8 +75,3 @@ export const uploadResumeImages = async (req, res) => {
   }
 };
 
-
-
-
-// 1:20:19
-

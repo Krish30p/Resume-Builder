@@ -1,4 +1,4 @@
-import Resume from "../models/resumeModels.js";
+import Resume from "../models/resumeModel.js";
 import fs from "fs";
 import path from "path";
 
