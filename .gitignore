@@ -1,1 +1,4 @@
 backend/.env
+# Backend environment variables
+backend/.env
+backend/.env*
