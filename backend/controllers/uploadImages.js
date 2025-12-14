@@ -74,3 +74,9 @@ export const uploadResumeImages = async (req, res) => {
       .json({ message: "failed to upload images", error: err.message });
   }
 };
+
+
+
+
+// 1:20:19
+

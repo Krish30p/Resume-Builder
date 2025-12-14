@@ -84,12 +84,12 @@ export const createResume = async (req, res) => {
 };
 
 // get function
-export const getUserResumes = async (req, res) => {
+export const getUserResume = async (req, res) => {
   try {
-    const resumes = await Resume.find({ userId: req.user._id }).sort({
+    const resume = await Resume.find({ userId: req.user._id }).sort({
       updatedAt: -1,
     });
-    res.json(resumes);
+    res.json(resume);
   } catch (error) {
     res
       .status(500)
@@ -141,7 +141,7 @@ export const updateResume = async (req, res) => {
 };
 // delete resume
 
-export const deleteResumes = async (req, res) => {
+export const deleteResume = async (req, res) => {
   try {
     const resume = await Resume.findOne({
       _id: req.params.id,
