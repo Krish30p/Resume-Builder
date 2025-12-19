@@ -5,7 +5,8 @@ import { UserContext } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ProfileInfoCard } from '../components/Cards';
-import { div } from 'framer-motion/client';
+import Login from '../components/Login'
+import Modal from '../components/Modal';
 
 const LandingPage = () => {
   const {user} = useContext(UserContext)
@@ -288,10 +289,23 @@ const LandingPage = () => {
         <div className={landingPageStyles.footerContainer}>
           <p className={landingPageStyles.footerText}>
              Crafted with <span className={landingPageStyles.footerHeart}>❤️</span> by{' '}
-             <a href='https://github.com/Krish30p' target='_blank' classname={landingPageStyles.footerLink}>Krishna</a>
+             <a href='https://github.com/Krish30p' target='_blank' className={landingPageStyles.footerLink}>Krishna</a>
           </p>
         </div>
       </footer>
+
+      {/* Modal for login and signup */}
+      <Modal isOpen={openAuthModal} onClose={()=>{
+        setOpenAuthModal(false)
+        setCurrentPage("login")
+
+      }} hideHeader>
+        <div>
+          {currentPage === "login" && <Login setCurrentPage={setCurrentPage}/>}
+          {currentPage === "signup" && <SignUp setCurrentPage={setCurrentPage}/>}
+
+        </div>
+      </Modal>
     </div>
   )
 }
