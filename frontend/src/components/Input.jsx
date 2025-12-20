@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { inputStyles } from '../assets/dummystyle'
-import {Eye, EyeOff, EyeOffIcon} from 'lucide-react'
+import {Eye, EyeOff, } from 'lucide-react'
 
 export const Input = ({ value , onChange, label, placeholder, type = 'text'}) => {
 
@@ -19,8 +19,8 @@ export const Input = ({ value , onChange, label, placeholder, type = 'text'}) =>
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)} />
 
-            {type === 'password' && ( <button onClick={()=> setShowPassword(!showPassword)} className={styles.toggleButton}>
-                {showPassword ? <EyeOffIcon size={20}/> : <Eye size={20}/>}
+            {type === 'password' && ( <button type='button' onClick={()=> setShowPassword(!showPassword)} className={styles.toggleButton}>
+                {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
             </button>)}
         </div>
       
