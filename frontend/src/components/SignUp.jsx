@@ -82,8 +82,7 @@ const SignUp = ({ setCurrentPage}) => {
         {/* footer */}
         <p className={styles.switchText}>Already have an account? {''}
           <button onClick={() => setCurrentPage('login')} type='button' className={styles.signupSwitchButton}>
-            return;SignI
-            n
+            SignIn
 
           </button>
         </p>

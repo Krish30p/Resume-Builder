@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { ProfileInfoCard } from '../components/Cards';
 import Login from '../components/Login'
 import Modal from '../components/Modal';
+import SignUp from '../components/SignUp';
 
 const LandingPage = () => {
   const {user} = useContext(UserContext)
