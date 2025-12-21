@@ -243,7 +243,7 @@ const Dashboard = () => {
 
       {/* delete modal  */}
       <Modal isOpen={showDeleteConfirm} onClose={()=>setShowDeleteConfirm(false)} title='Confirm Deletion' 
-      shwoActionBtn actionBtnText='Delete' actionBtnClassName = 'bg-red-600 hover:bg-red-700' onActionClick={handleDeleteClick}>
+      shwoActionBtn actionBtnText='Delete' actionBtnClassName = 'bg-red-600 hover:bg-red-700' onActionClick={handleDeleteResume}>
         <div className='p-4'>
           <div className='flex flex-col items-center text-center'>
             <div className={styles.deleteIconWrapper}>
