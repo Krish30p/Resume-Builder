@@ -25,24 +25,46 @@ axiosInstance.interceptors.request.use(
 )
 
 // Response Interceptor 
-axiosInstance.interceptors.request.use(
-    (response) =>{
-        return response;
-    },
-    (error)=>{
-        if (error.response){
-            if(error.response.status === 401){
-                window.location.href ='/'
-            }
-            else if (error.response.status === 500){
-                console.error("Server Error")
-            }
-        }
-         else if (error.response.status === 'ECONNABORTED'){
-            console.error("Request timeout")
-        }
-        return Promise.reject(error)
+// axiosInstance.interceptors.request.use(
+//     (response) =>{
+//         return response;
+//     },
+//     (error)=>{
+//         if (error.response){
+//             if(error.response.status === 401){
+//                 window.location.href ='/'
+//             }
+//             else if (error.response.status === 500){
+//                 console.error("Server Error")
+//             }
+//         }
+//          else if (error.response.status === 'ECONNABORTED'){
+//             console.error("Request timeout")
+//         }
+//         return Promise.reject(error)
+//     }
+// )
+
+
+
+// Response Interceptor ✅  chatgpt
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response) {
+      if (error.response.status === 401) {
+        window.location.href = "/";
+      } else if (error.response.status === 500) {
+        console.error("Server Error");
+      }
+    } else if (error.code === "ECONNABORTED") {
+      console.error("Request timeout");
     }
-)
+    return Promise.reject(error);
+  }
+);
+
 
 export default axiosInstance;

@@ -176,7 +176,7 @@ export const deleteResume = async (req, res) => {
     }
 
     //delete resuem doc
-    const deleted = await Resume.findOne({
+    const deleted = await Resume.deleteOne({
       _id: req.params.id,
       userId: req.user._id,
     });
