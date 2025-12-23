@@ -36,7 +36,7 @@ const LandingPage = () => {
               <LayoutTemplate className={landingPageStyles.logoIconInner} />
             </div>
             <span className={landingPageStyles.logoText}>
-              ResumeXpert
+              EasyResume
             </span>
           </div>
           {/* Mobile menu button */}
@@ -219,7 +219,7 @@ const LandingPage = () => {
           <div className={landingPageStyles.featuresContainer}>
             <div className={landingPageStyles.featuresHeader}>
               <h2 className={landingPageStyles.featuresTitle}>
-                Why choose <span className={landingPageStyles.featuresTitleGradient}>ResumeXpert?</span>
+                Why choose <span className={landingPageStyles.featuresTitleGradient}>EasyResume?</span>
               </h2>
               <p className={landingPageStyles.featuresDescription}>
                 Everything you need to create a professional resume that stand out

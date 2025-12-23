@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { fixTailwindColors } from "../utils/color";
 import StepProgres from './StepProgress'
 import Modal from './Modal'
+import html2canvas from 'html2canvas'
 
 // import ProfileInfoForm from './Forms' 
 import {
@@ -26,6 +27,7 @@ import {
 import html2pdf from 'html2pdf.js'
 import ThemeSelector from "./ThemeSelector";
 import RenderResume from "./RenderResume";
+import { dataURLtoFile } from "../utils/helper";
 
 const useResizeObserver = () => {
   const [size, setSize] = useState({ width: 0, height: 0 });

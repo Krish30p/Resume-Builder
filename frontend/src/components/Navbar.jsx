@@ -12,7 +12,7 @@ const Navbar = () => {
                 <div className=' w-10 h-10 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl flex items-center justify-center shadow-lg shadow-violet-200'>
                     <LayoutTemplate className='w-5 h-5 text-white'/>
                 </div>
-                <span className='text-xl sm:text-2xl font-black bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent '>ResumeXpert </span>
+                <span className='text-xl sm:text-2xl font-black bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent '>EasyResume </span>
             </div>
             </Link>
             <ProfileInfoCard/>
