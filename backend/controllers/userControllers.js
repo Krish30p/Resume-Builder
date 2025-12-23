@@ -20,7 +20,7 @@ export const registerUser = async (req, res) => {
       return res
         .status(400)
         .json({
-          sucess: false,
+          success: false,
           message: "Password must be atlleast 8 charaacters ",
         });
     }
@@ -38,7 +38,7 @@ export const registerUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user.id),
+      token: generateToken(user._id),
     })
   } catch (error) {
     res.status(500).json({
@@ -55,13 +55,13 @@ try {
   const {email , password} = req.body
   const user = await User.findOne({email})
   if(!user){
-    return res.status(500).json({message:"invalid email or password"})
+    return res.status(401).json({message:"invalid email or password"})
   }
 
   //Compare Password
   const isMatch = await bcrypt.compare(password, user.password)
   if(!isMatch){
-    return res.status(500).json({message:"invalid email or password"})
+    return res.status(401).json({message:"invalid email or password"})
   }
   res.status(201).json({
       _id: user._id,
@@ -85,7 +85,7 @@ export const getUserProfile = async (req,res)=>{
   try {
     const user = await User.findById(req.user.id).select("-password")
     if(!user){
-    return res.status(500).json({message:"User not found"})
+    return res.status(404).json({message:"User not found"})
   }
   res.json(user)
 

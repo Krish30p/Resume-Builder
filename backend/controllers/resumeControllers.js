@@ -100,9 +100,9 @@ export const getUserResume = async (req, res) => {
 
 export const getResumeById = async (req, res) => {
   try {
-    const resume = await Resume.find({
-      _id: req.params.user.id,
-      userId: req.res._id,
+    const resume = await Resume.findOne({
+      _id: req.params.id,
+      userId: req.user._id,
     });
     if (!resume) {
       return res.status(404).json({ message: "Resume not found " });
@@ -132,7 +132,7 @@ export const updateResume = async (req, res) => {
     Object.assign(resume, req.body);
     // save update resume
     const savedResume = await resume.save();
-    req.json(savedResume);
+    res.json(savedResume);
   } catch (error) {
     return res
       .status(500)
