@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { inputStyles, photoSelectorStyles, titleInputStyles } from '../assets/dummystyle'
 import {Check, Edit, Eye, EyeOff, } from 'lucide-react'
 
-export const Input = ({ value , onChange, label, placeholder, type = 'text'}) => {
+
+const Input = ({ value , onChange, label, placeholder, type = 'text'}) => {
 
     const[showPassword, setShowPassword] = useState(false)
     const[isFocused ,setIsFocused] = useState(false)
@@ -27,6 +28,7 @@ export const Input = ({ value , onChange, label, placeholder, type = 'text'}) =>
     </div>
   )
 }
+export default Input
 
 export const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
   const inputRef = useRef(null);

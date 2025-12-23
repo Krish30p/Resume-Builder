@@ -5,7 +5,7 @@ import axiosInstance from "../utils/axiosInstance";
 import { API_PATHS } from "../utils/apiPath";
 
 import { authStyles as styles } from "../assets/dummystyle";
-import { Input } from "./Input";
+import  Input  from "../components/Input";
 import { validateEmail } from "../utils/helper";
 
 const Login = ({ setCurrentPage }) => {

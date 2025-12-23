@@ -1,15 +1,31 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import DashboardLayout from "./DashboardLayout";
-import { buttonStyles, containerStyles } from "../assets/dummystyle";
+import { buttonStyles, containerStyles, iconStyles, statusStyles } from "../assets/dummystyle";
 import { useNavigate, useParams } from "react-router-dom";
 import { TitleInput } from "./Input";
-import { Download, Palette, Trash2 } from "lucide-react";
+import { AlertCircle, ArrowLeft, Check, Download, Loader2, Palette, Save, Trash2 } from "lucide-react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_PATHS } from "../utils/apiPath";
 import toast from 'react-hot-toast';
 import { fixTailwindColors } from "../utils/color";
+import StepProgres from './StepProgress'
+import Modal from './Modal'
+
+// import ProfileInfoForm from './Forms' 
+import {
+  ContactInfoForm,
+  ProfileInfoForm,
+  EducationDetailsForm,
+  WorkExperienceForm,
+  ProjectDetailForm,
+  SkillsInfoForm,
+  CertificationInfoForm,
+  AdditionalInfoForm
+} from '../components/Forms';
 
 import html2pdf from 'html2pdf.js'
+import ThemeSelector from "./ThemeSelector";
+import RenderResume from "./RenderResume";
 
 const useResizeObserver = () => {
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -677,7 +693,131 @@ const EditResume = () => {
             </button>
           </div>
         </div>
+
+        {/* Step progress */}
+        <div className={containerStyles.grid}>
+            <div className={containerStyles.formContainer}>
+              <StepProgres progress={progress} />
+              {renderForm()}
+              <div className="p-4 sm:p-6 ">
+                {errorMsg &&(
+                  <div className={containerStyles.error}>
+                    <AlertCircle size={16} />
+                    {errorMsg}
+                  </div>
+                )}
+                <div className=" flex flex-wrap items-center justify-end gap-3">
+                  <button className={buttonStyles.back} onClick={goBack} disabled={isLoading}>
+                    <ArrowLeft size={16}/>Back
+                  </button>
+
+                  <button className={buttonStyles.save} onClick={uploadResumeImages} disabled={isLoading}>
+                    {isLoading ? <Loader2 size={16} className="animate-spin"/>
+                    :<Save size={16}/>}
+                    {isLoading ? "Saving..." : "Save & Exit"}
+
+                  </button>
+
+                  <button className={buttonStyles.next} onClick={validateAndNext} disabled={isLoading}>
+                    {currentPage === "additionalInfo" && <Download size={16}/>}
+                    {currentPage === "additionalInfo"  ? "Preview & Download" : "Next"}
+                    {currentPage === "additionalInfo" && <ArrowLeft size={16} className="rotate-180" />}
+                  </button>
+                </div>
+
+              </div>
+              </div>  
+              <div className=" hidden lg:block">
+                  <div className={containerStyles.previewContainer}>
+                    <div className="text-center mb-4 ">
+                      <div className={statusStyles.completionBadge}>
+                        <div className={iconStyles.pulseDot}></div>
+                        <span>Preview - {completionPercentage}% Completed</span>
+                      </div>
+                    </div>
+
+                    <div className=" preview-container relative" ref={previewContainerRef}>
+                      <div className={containerStyles.previewInner}>
+                        <RenderResume key={`preview-${resumeData?.template?.theme}`}
+                        templateId={resumeData?.template?.theme || ""}
+                        resumeData={resumeData}
+                        containerWidth={previewWidth} />
+                      </div>
+
+                    </div>
+                  </div>
+              </div>
+        </div>
       </div>
+
+      {/* Modal data here */}
+
+        <Modal isOpen={openThemeSelector} onClose={() => setOpenThemeSelector(false)}
+        title="Change Title">
+          <div className={containerStyles.modalContent}>
+            <ThemeSelector selectedTheme={resumeData?.template.theme}
+            setSelectTheme={updateTheme} onClose={() => setOpenThemeSelector(false)} />  
+          </div>
+          
+        </Modal>
+        <Modal isOpen={openPreviewModal} onClose={()=> setOpenPreviewModal(false)}
+          title={resumeData.title}
+          showActionBtn
+          actionBtnText={isDownloading? "Generating...":
+            downloadSuccess ? "Downloaded" :"Download PDF"}
+
+            actionBtnIcon={
+              isDownloading?(
+                <Loader2 size={16} className="animate-spin"/>
+
+              ):(
+                downloadSuccess? (
+                  <Check size={16} className="text-white"/>
+
+                ):(
+                  <Download size={16}/>
+                )
+              )
+
+            }
+            onActionClick={downloadPDF}
+          >
+            <div className="relative">
+              <div className="text-center mb-4 ">
+                <div className={statusStyles.modalBadge}>
+                  <div className={iconStyles.pulseDot}></div>
+                  <span >Completion: {completionPercentage}%</span>
+                </div>
+              </div>
+              <div className={containerStyles.pdfPreview}>
+                <div ref={resumeDownloadRef} className="a4-wrapper">
+                  <div className="w-full h-full">
+                    <RenderResume key={`pdf-${resumeData?.template?.theme}`}
+                    templateId={resumeData?.template?.theme ||" "}
+                    resumeData={resumeData}
+                    containerWidth={null}/>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+        </Modal>
+            
+
+            {/* Thumbnail error fix */}
+
+            <div style={{display:"none"}} ref={thumbnailRef}>
+              <div className={containerStyles.hiddenThumbnail}>
+                <RenderResume key={`thumb-${resumeData?.template?.theme}`}
+                templateId={resumeData?.template?.theme || ""}
+                resumeData={resumeData}/>
+
+              </div>
+
+            </div>
+
     </DashboardLayout>
   );
 };

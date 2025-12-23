@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { validateEmail } from '../utils/helper'
 import axiosInstance from '../utils/axiosInstance'
 import { API_PATHS } from '../utils/apiPath'
-import { Input } from './Input'
+import  Input  from "../components/Input";
 import { label } from 'framer-motion/client'
 
 const SignUp = ({ setCurrentPage}) => {
