@@ -1,4 +1,4 @@
-export const BASE_URL ='http://localhost:4000'
+export const BASE_URL = import.meta.env.VITE_BASE_URL; 
 
 //  Routes used in frontend
 
@@ -18,6 +18,6 @@ export const API_PATHS =  {
         UPLOAD_IMAGES: (id) => `/api/resume/${id}/upload-images`,
     },
     image:{
-        UPLOAD_IMAGE: `api/auth/upload-image`
+        UPLOAD_IMAGE: `/api/auth/upload-image`
     }
 }
