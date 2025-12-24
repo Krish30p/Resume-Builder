@@ -4,7 +4,6 @@
 ![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
 ![Node](https://img.shields.io/badge/Backend-Node.js-green?logo=node.js)
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-darkgreen?logo=mongodb)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Status](https://img.shields.io/badge/Status-Active-success)
 
 ---
