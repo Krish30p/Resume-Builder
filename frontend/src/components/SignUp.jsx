@@ -6,7 +6,7 @@ import { validateEmail } from '../utils/helper'
 import axiosInstance from '../utils/axiosInstance'
 import { API_PATHS } from '../utils/apiPath'
 import  Input  from "../components/Input";
-import { label } from 'framer-motion/client'
+
 
 const SignUp = ({ setCurrentPage}) => {
   const [fullName, setFullName] = useState('');
