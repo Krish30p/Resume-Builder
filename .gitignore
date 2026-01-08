@@ -2,3 +2,6 @@ backend/.env
 # Backend environment variables
 backend/.env
 backend/.env*
+.env
+./backend/.env
+../backend/.env

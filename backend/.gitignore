@@ -3,5 +3,12 @@
 */.env
 backend/.env
 # Backend environment variables
-backend/.env
-backend/.env*
+./backend/.env
+../backend/.env*
+.env
+../backend/env
+.env
+node_modules
+.env
+./backend/.env
+../backend/.env
