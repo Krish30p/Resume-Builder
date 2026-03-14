@@ -85,14 +85,14 @@ export const ResumeSummaryCard = ({
     if (onDelete) onDelete();
   };
 
-//   colors
+//   colors — Iron Man dark theme
   const generateDesign = () => {
     const colors = [
-      "from-blue-50 to-blue-100",
-      "from-purple-50 to-purple-100",
-      "from-emerald-50 to-emerald-100",
-      "from-amber-50 to-amber-100",
-      "from-rose-50 to-rose-100"
+      "from-red-950 to-red-900",
+      "from-amber-950 to-amber-900",
+      "from-gray-800 to-red-950",
+      "from-gray-800 to-amber-950",
+      "from-red-900 to-gray-800"
     ];
     return colors[title.length % colors.length];
   };
@@ -119,7 +119,7 @@ export const ResumeSummaryCard = ({
       <div className={`${cardStyles.previewArea} bg-gradient-to-br ${designColor}`}>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div className={cardStyles.emptyPreviewIcon}>
-            <Edit size={28} className="text-indigo-600" />
+            <Edit size={28} className="text-amber-500" />
           </div>
           <span className={cardStyles.emptyPreviewText}>{title}</span>
           <span className={cardStyles.emptyPreviewSubtext}>
@@ -132,8 +132,8 @@ export const ResumeSummaryCard = ({
               <div
                 key={i}
                 className={`px-2 py-1 text-xs rounded-md ${i < Math.floor(completion / 25)
-                  ? 'bg-white/90 text-indigo-600 font-medium'
-                  : 'bg-white/50 text-gray-500'
+                  ? 'bg-gray-900/90 text-amber-400 font-medium'
+                  : 'bg-gray-800/50 text-gray-500'
                   }`}
               >
                 {section}
@@ -182,15 +182,15 @@ export const ResumeSummaryCard = ({
         </div>
 
         {/* Progress bar */}
-        <div className="relative w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div className="relative w-full h-2 bg-gray-700 rounded-full overflow-hidden">
           <div
             className={`h-full bg-gradient-to-r ${getCompletionColor()} rounded-full transition-all duration-700 ease-out relative overflow-hidden`}
             style={{ width: `${completion}%` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
           </div>
           <div
-            className={`absolute top-0 h-full w-4 bg-gradient-to-r from-transparent to-white/50 blur-sm transition-all duration-700`}
+            className={`absolute top-0 h-full w-4 bg-gradient-to-r from-transparent to-white/30 blur-sm transition-all duration-700`}
             style={{ left: `${Math.max(0, completion - 2)}%` }}
           ></div>
         </div>
@@ -200,7 +200,7 @@ export const ResumeSummaryCard = ({
           <span className="text-xs font-medium text-gray-500">
             {completion < 50 ? "Getting Started" : completion < 80 ? "Almost There" : "Ready to Go!"}
           </span>
-          <span className="text-xs font-bold text-gray-700">{completion}% Complete</span>
+          <span className="text-xs font-bold text-gray-300">{completion}% Complete</span>
         </div>
       </div>
     </div>
@@ -213,37 +213,37 @@ export const ResumeSummaryCard = ({
 
 export const TemplateCard = ({thumbnailImg, isSelected, onSelect}) =>{
   return(
-    <div className={`group h-auto md:h-[300px] lg:h-[320px] flex flex-col bg-white border-2 overflow-hidden cursor-pointer translate-full duration-500 hover:scale-105 hover:shadow-lg rounded-3xl
+    <div className={`group h-auto md:h-[300px] lg:h-[320px] flex flex-col bg-gray-900 border-2 overflow-hidden cursor-pointer translate-full duration-500 hover:scale-105 hover:shadow-lg hover:shadow-red-500/20 rounded-3xl
       ${
-        isSelected? 'border-violet-500 shadow-lg shadow-violet-500/20 bg-violet-50 '
-        : 'border-gray-200 hover:border-violet-300 '
+        isSelected? 'border-amber-500 shadow-lg shadow-amber-500/20 bg-amber-950/20 '
+        : 'border-gray-700/50 hover:border-red-700/50 '
       }`} onClick={onSelect}>
         {thumbnailImg?(
           <div className="relative w-full h-full overflow-hidden">
             <img src={thumbnailImg || '/placeholder.svg'} alt="Template Review" className=" w-full h-full object-contain group-hover:scale-110
             transition-transform duration-700" />
-            <div className=" absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent
+            <div className=" absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent
             opacity-0 group-hover:opacity-100 transition-opacity duration-300 "/>
 
             {isSelected && (
-              <div className="absolute inset-0 bg-violet-500/10 flex items-center justify-center">
-                <div className=" w-16 h-16 bg-white backdrop-blur-sm rounded-full  flex items-center justify-center shadow-lg animate-pulse ">
-                  <Check size={24} className="text-violet-600" />
+              <div className="absolute inset-0 bg-amber-500/10 flex items-center justify-center">
+                <div className=" w-16 h-16 bg-gray-900/80 backdrop-blur-sm rounded-full  flex items-center justify-center shadow-lg animate-pulse ">
+                  <Check size={24} className="text-amber-500" />
                 </div>
               </div>
             )}
             {/* hover effect */}
-            <div className=" absolute inset-0 bg-gradient-to-t from-violet-100/10 to-transparent opacity-0
+            <div className=" absolute inset-0 bg-gradient-to-t from-red-500/10 to-transparent opacity-0
             group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
         ): (
-          <div className="w-full h-[200px] flex items-center flex-col justify-center bg-gradient-to-br from-violet-50
-          via-violet-600 to-fuchsia-50 ">
-            <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-2xl flex items-center
+          <div className="w-full h-[200px] flex items-center flex-col justify-center bg-gradient-to-br from-gray-800
+          via-red-950 to-gray-800 ">
+            <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-amber-500 rounded-2xl flex items-center
             justify-center mb-3">
               <Edit className="text-white" size={20} />
             </div>
-            <span className="text-gray-700 font-bold ">No Preview</span>
+            <span className="text-gray-300 font-bold ">No Preview</span>
           </div>
         )}
       </div>
