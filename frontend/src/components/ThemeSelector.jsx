@@ -80,7 +80,7 @@ const ThemeSelector = ({ selectedTheme, setSelectTheme, resumeData, onClose }) =
       <div className='grid grid-cols-1 lg:grid-cols-5 gap-5 lg:gap-8'>
         {/* Left area - Template selection */}
         <div className='lg:col-span-2 bg-white rounded-2xl border border-gray-200 p-4 sm:p-6'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[60vh] lg:max-h-[70vh] overflow-auto p-2'>
+          <div className='grid grid-cols-2 gap-4 max-h-[60vh] lg:max-h-[70vh] overflow-auto p-2'>
             {resumeTemplates.map((template, index) => (
               <TemplateCard 
                 key={`templates_${index}`}
@@ -96,12 +96,14 @@ const ThemeSelector = ({ selectedTheme, setSelectTheme, resumeData, onClose }) =
         </div>
 
         {/* Right area - Preview */}
-        <div className='lg:col-span-3 bg-white rounded-2xl border border-gray-100 p-4 sm:p-6' ref={resumeRef}>
-          <RenderResume 
-            templateId={selectedTemplate?.theme || ""}
-            resumeData={resumeData || DUMMY_RESUME_DATA}
-            containerWidth={baseWidth}
-          />
+        <div className='lg:col-span-3 bg-white rounded-2xl border border-gray-100 p-4 sm:p-6'>
+          <div className='w-full overflow-hidden' ref={resumeRef}>
+            <RenderResume 
+              templateId={selectedTemplate?.theme || ""}
+              resumeData={resumeData || DUMMY_RESUME_DATA}
+              containerWidth={baseWidth}
+            />
+          </div>
         </div>
       </div>
     </div>

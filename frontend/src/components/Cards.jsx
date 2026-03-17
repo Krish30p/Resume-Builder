@@ -213,14 +213,14 @@ export const ResumeSummaryCard = ({
 
 export const TemplateCard = ({thumbnailImg, isSelected, onSelect}) =>{
   return(
-    <div className={`group h-auto md:h-[300px] lg:h-[320px] flex flex-col bg-gray-900 border-2 overflow-hidden cursor-pointer translate-full duration-500 hover:scale-105 hover:shadow-lg hover:shadow-red-500/20 rounded-3xl
+    <div className={`group h-[280px] sm:h-[300px] lg:h-[320px] flex flex-col bg-gray-900 border-2 overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-red-500/20 rounded-3xl
       ${
         isSelected? 'border-amber-500 shadow-lg shadow-amber-500/20 bg-amber-950/20 '
         : 'border-gray-700/50 hover:border-red-700/50 '
       }`} onClick={onSelect}>
         {thumbnailImg?(
           <div className="relative w-full h-full overflow-hidden">
-            <img src={thumbnailImg || '/placeholder.svg'} alt="Template Review" className=" w-full h-full object-contain group-hover:scale-110
+            <img src={thumbnailImg || '/placeholder.svg'} alt="Template Review" className="w-full h-full object-cover object-top group-hover:scale-110
             transition-transform duration-700" />
             <div className=" absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent
             opacity-0 group-hover:opacity-100 transition-opacity duration-300 "/>

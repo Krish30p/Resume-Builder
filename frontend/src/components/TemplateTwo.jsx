@@ -33,7 +33,7 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
   return (
     <div
       ref={resumeRef}
-      className="resume-section p-4 bg-white font-sans text-black max-w-4xl mx-auto"
+      className="resume-section p-4 bg-white font-sans text-black"
       style={{
         transform: containerWidth > 0 ? `scale(${scale})` : undefined,
         transformOrigin: "top left",

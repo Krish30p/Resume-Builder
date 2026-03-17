@@ -14,16 +14,14 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
   } = resumeData;
 
   const resumeRef = useRef(null);
-  const [baseWidth, setBaseWidth] = useState(1100);
+  const [baseWidth, setBaseWidth] = useState(800);
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
-    if (resumeRef.current) {
-      const actualBaseWidth = resumeRef.current.offsetWidth;
-      setBaseWidth(actualBaseWidth);
-      if (containerWidth > 0) {
-        setScale(containerWidth / actualBaseWidth);
-      }
+    if (resumeRef.current && containerWidth > 0) {
+      const actualWidth = resumeRef.current.offsetWidth;
+      setBaseWidth(actualWidth);
+      setScale(containerWidth / actualWidth);
     }
   }, [containerWidth]);
 
@@ -50,11 +48,11 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
   return (
     <div
       ref={resumeRef}
-      className="bg-white font-sans a4-wrapper text-black max-w-screen-lg mx-auto"
+      className="bg-white font-sans a4-wrapper text-black"
       style={{
-        transform: containerWidth > 0 ? `scale(${scale})` : "none",
+        transform: containerWidth > 0 ? `scale(${scale})` : undefined,
         transformOrigin: "top left",
-        width: containerWidth > 0 ? `${baseWidth}px` : "auto",
+        width: containerWidth > 0 ? `${baseWidth}px` : undefined,
         height: "auto",
       }}
     >
