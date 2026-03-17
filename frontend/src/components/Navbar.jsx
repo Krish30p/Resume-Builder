@@ -5,10 +5,10 @@ import {ProfileInfoCard} from '../components/Cards'
 
 const Navbar = () => {
   return (
-    <div className='h-16 bg-gray-950/80 backdrop-blur-xl border-b border-red-900/40 py-2.5 px-4 md:px-0 sticky top-0 z-50'>
+    <div className='bg-gray-950/80 backdrop-blur-xl border-b border-red-900/40 py-3 px-4 md:px-8 sticky top-0 z-50'>
         <div className='max-w-6xl mx-auto flex items-center justify-between gap-5'>
-            <Link to='/' className='flex items-center gap-3'>
-            <div className='flex items-center pb-6 gap-3'>
+            <Link to='/' className='flex flex-row items-center gap-3'>
+            <div className='flex items-center gap-3'>
                 <div className=' w-10 h-10 bg-gradient-to-r from-red-600 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg shadow-red-500/30'>
                     <LayoutTemplate className='w-5 h-5 text-white'/>
                 </div>

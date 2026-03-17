@@ -24,7 +24,7 @@ export const ProfileInfoCard = () =>{
                     </span>
                 </div>
 
-                <div>
+                <div className="flex flex-col items-start justify-center">
                     <div className={cardStyles.profileName}>
                         {user.name || ""}
                     </div>
