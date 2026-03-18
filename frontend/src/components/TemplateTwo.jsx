@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { LuExternalLink, LuGithub } from "react-icons/lu";
-import { formatYearMonth } from "../utils/helper";
+import { formatYearMonth, ensureUrl } from "../utils/helper";
 
 const sectionTitleClass = "text-base font-bold uppercase tracking-wide mb-1 pb-1 border-b border-gray-300";
 
@@ -54,17 +54,17 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
             </a>
           )}
           {contactInfo.linkedin && (
-            <a href={contactInfo.linkedin} className="hover:underline text-blue-600">
+            <a href={ensureUrl(contactInfo.linkedin)} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600">
               LinkedIn
             </a>
           )}
           {contactInfo.github && (
-            <a href={contactInfo.github} className="hover:underline text-blue-600">
+            <a href={ensureUrl(contactInfo.github)} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600">
               GitHub
             </a>
           )}
           {contactInfo.website && (
-            <a href={contactInfo.website} className="hover:underline text-blue-600">
+            <a href={ensureUrl(contactInfo.website)} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600">
               Portfolio
             </a>
           )}
@@ -126,7 +126,7 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
                 <div className="flex justify-between items-start">
                   <h3 className="font-semibold text-[12px] text-gray-800">{proj.title}</h3>
                   {proj.link && (
-                    <a href={proj.link} className="text-blue-600 text-[11px] hover:underline">
+                    <a href={ensureUrl(proj.link)} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-[11px] hover:underline">
                       {proj.linkType || "Link"}
                     </a>
                   )}
@@ -139,12 +139,12 @@ const TemplateTwo = ({ resumeData = {}, containerWidth }) => {
                 <p className="text-[11px] pb-2 text-gray-700 ">{proj.description}</p>
                 <div className="flex gap-1 mt-0.5 pt-2 text-[11px]">
                   {proj.github && (
-                    <a href={proj.github} className="flex items-center gap-0.5 hover:underline text-blue-600">
+                    <a href={ensureUrl(proj.github)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-0.5 hover:underline text-blue-600">
                       <LuGithub size={10} /> GitHub
                     </a>
                   )}
                   {proj.liveDemo && (
-                    <a href={proj.liveDemo} className="flex items-center gap-0.5 hover:underline text-blue-600">
+                    <a href={ensureUrl(proj.liveDemo)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-0.5 hover:underline text-blue-600">
                       <LuExternalLink size={10} /> Demo
                     </a>
                   )}

@@ -7,7 +7,7 @@ import {
   ProjectInfo,
   CertificationInfo,
 } from "./ResumeSection";
-import { formatYearMonth } from "../utils/helper";
+import { formatYearMonth, ensureUrl } from "../utils/helper";
 
 const DEFAULT_THEME = ["#ffffff", "#0d47a1", "#1e88e5", "#64b5f6", "#bbdefb"];
 
@@ -90,7 +90,7 @@ const TemplateOne = ({ resumeData = {}, colorPalette, containerWidth }) => {
           {contactInfo.linkedin && (
             <div className="flex items-center mb-1">
               <RiLinkedinLine className="mr-1" />
-              <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">
+              <a href={ensureUrl(contactInfo.linkedin)} target="_blank" rel="noopener noreferrer" className="hover:underline">
                 LinkedIn
               </a>
             </div>
@@ -98,7 +98,7 @@ const TemplateOne = ({ resumeData = {}, colorPalette, containerWidth }) => {
           {contactInfo.github && (
             <div className="flex items-center mb-1">
               <LuGithub className="mr-1" />
-              <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" className="hover:underline">
+              <a href={ensureUrl(contactInfo.github)} target="_blank" rel="noopener noreferrer" className="hover:underline">
                 GitHub
               </a>
             </div>
@@ -106,7 +106,7 @@ const TemplateOne = ({ resumeData = {}, colorPalette, containerWidth }) => {
           {contactInfo.website && (
             <div className="flex items-center">
               <LuGlobe className="mr-1" />
-              <a href={contactInfo.website} target="_blank" rel="noopener noreferrer" className="hover:underline">
+              <a href={ensureUrl(contactInfo.website)} target="_blank" rel="noopener noreferrer" className="hover:underline">
                 Portfolio
               </a>
             </div>

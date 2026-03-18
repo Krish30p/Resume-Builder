@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { formatYearMonth } from "../utils/helper";
+import { formatYearMonth, ensureUrl } from "../utils/helper";
 
 const TemplateThree = ({ resumeData = {}, containerWidth }) => {
   const {
@@ -98,7 +98,7 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
               {contactInfo.linkedin && (
                 <li className="flex items-start ">
                   <span className="font-semibold min-w-[65px]">LinkedIn:</span>
-                  <a href={contactInfo.linkedin}
+                  <a href={ensureUrl(contactInfo.linkedin)}
                     className="text-blue-600 hover:underline truncate pb-1"
                     title={contactInfo.linkedin}>
                     linkedin.com/in/{contactInfo.linkedin.split('/').pop()}
@@ -108,7 +108,7 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
               {contactInfo.github && (
                 <li className="flex items-start">
                   <span className="font-semibold min-w-[65px] ">GitHub:</span>
-                  <a href={contactInfo.github}
+                  <a href={ensureUrl(contactInfo.github)}
                     className="text-blue-600 hover:underline pb-2 truncate"
                     title={contactInfo.github}>
                     github.com/{contactInfo.github.split('/').pop()}
@@ -118,7 +118,7 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
               {contactInfo.website && (
                 <li className="flex items-start">
                   <span className="font-semibold min-w-[65px]">Portfolio:</span>
-                  <a href={contactInfo.website}
+                  <a href={ensureUrl(contactInfo.website)}
                     className="text-blue-600 hover:underline pb-2 truncate"
                     title={contactInfo.website}>
                     {contactInfo.website.replace(/(^\w+:|^)\/\//, '')}
@@ -239,13 +239,13 @@ const TemplateThree = ({ resumeData = {}, containerWidth }) => {
 
                     <div className="flex flex-wrap gap-2 mt-1">
                       {proj.github && (
-                        <a href={proj.github}
+                        <a href={ensureUrl(proj.github)}
                           className="text-blue-600 hover:underline flex items-center text-xs">
                           <span>GitHub</span>
                         </a>
                       )}
                       {proj.liveDemo && (
-                        <a href={proj.liveDemo}
+                        <a href={ensureUrl(proj.liveDemo)}
                           className="text-blue-600 hover:underline flex items-center text-xs">
                           <span>Live Demo</span>
                         </a>

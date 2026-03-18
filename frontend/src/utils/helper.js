@@ -11,6 +11,17 @@ export const validateEmail = (email) => {
 }
 
 /**
+ * Ensure a URL has a protocol (https://).
+ * If the URL already starts with http:// or https://, return as-is.
+ * Otherwise, prepend https://.
+ */
+export const ensureUrl = (url) => {
+  if (!url) return url
+  if (/^https?:\/\//i.test(url)) return url
+  return `https://${url}`
+}
+
+/**
  * Given a rootElement, walk it and every descendant and copy its
  * computed style into inline style.cssText. This forces ALL colors,
  * fonts, spacings, shadows, borders, etc. to be “real” values that

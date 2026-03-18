@@ -1,6 +1,7 @@
 import React from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 import { infoStyles as styles } from '../assets/dummystyle';
+import { ensureUrl } from '../utils/helper';
 
 export const Progress = ({ progress, color }) => (
   <div className={styles.progressWrapper}>
@@ -71,12 +72,12 @@ export const ProjectInfo = ({ title, description, githubLink, liveDemoUrl, isPre
     <p className={styles.projectDesc}>{description}</p>
     <div className={styles.projectLinks}>
       {githubLink && (
-        <a href={githubLink} target="_blank" rel="noopener noreferrer" className={styles.linkRow}>
+        <a href={ensureUrl(githubLink)} target="_blank" rel="noopener noreferrer" className={styles.linkRow}>
           <Github size={16} /><span>GitHub</span>
         </a>
       )}
       {liveDemoUrl && (
-        <a href={liveDemoUrl} target="_blank" rel="noopener noreferrer" className={styles.linkRow}>
+        <a href={ensureUrl(liveDemoUrl)} target="_blank" rel="noopener noreferrer" className={styles.linkRow}>
           <ExternalLink size={16} /><span>Live Demo</span>
         </a>
       )}
