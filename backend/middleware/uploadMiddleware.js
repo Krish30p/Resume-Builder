@@ -1,17 +1,11 @@
 import multer from 'multer'
 
-const storage = multer.diskStorage({
-    destination:( req, file, cb) =>{
-        cb(null,"uploads/")
-    },
-    filename:( req, file, cb) =>{
-        cb(null, `${Date.now()}-${file.originalname}`)
-    },
-});
+// Use memory storage for Vercel (read-only filesystem)
+const storage = multer.memoryStorage();
 
 //file filter
 const fileFilter = (req, file , cb) =>{
-    const allowedTypes =["images/jpeg", "images/png", "images/png",];
+    const allowedTypes =["image/jpeg", "image/png", "image/jpg",];
     if (allowedTypes.includes(file.mimetype)){
         cb (null, true)
     }

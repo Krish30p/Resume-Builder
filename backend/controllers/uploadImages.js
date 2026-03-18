@@ -1,12 +1,9 @@
-import fs from "fs";
-import path from "path";
-
 import Resume from "../models/resumeModel.js";
 import upload from "../middleware/uploadMiddleware.js";
 
 export const uploadResumeImages = async (req, res) => {
   try {
-    //configure multer to handle images
+    // Configure multer to handle images (memory storage)
     upload.fields([{ name: "thumbnail" }, { name: "profileImage" }])(
       req,
       res,
@@ -17,61 +14,53 @@ export const uploadResumeImages = async (req, res) => {
             .json({ message: "file upload failed", error: err.message });
         }
 
-        const resumeId = req.params.id;
-        const resume = await Resume.findOne({
-          _id: resumeId,
-          userId: req.user._id,
-        });
+        try {
+          const resumeId = req.params.id;
+          const resume = await Resume.findOne({
+            _id: resumeId,
+            userId: req.user._id,
+          });
 
-        if (!resume) {
-          return res
-            .status(404)
-            .json({ message: "Resume not found or unauthorised" });
-        }
-        //use process cwd to locate upload folder
-
-        const uploadsFolder = path.join(process.cwd(), "uploads");
-        const baseUrl = `${req.protocol}://${req.get("host")}`;
-
-        const newThumbnail = req.file.thumbnail?.[0];
-        const newProfileImage = req.file.profileImage?.[0];
-
-        if (newThumbnail) {
-          if (resume.thumbnailLink) {
-            const oldThumbnail = path.join(
-              uploadsFolder,
-              path.basename(resume.thumbnailLink)
-            );
-            if (fs.existsSync(oldThumbnail)) fs.unlinkSync(oldThumbnail);
+          if (!resume) {
+            return res
+              .status(404)
+              .json({ message: "Resume not found or unauthorised" });
           }
-          resume.thumbnailLink = `${baseUrl}/uploads/${newThumbnail.filename}`;
-        }
 
-        //profile preview image
-        if (newProfileImage) {
-          if (resume.profileInfo?.profilePreviewUrl) {
-            const oldProfile = path.join(
-              uploadsFolder,
-              path.basename(resume.profileInfo.profilePreviewUrl)
-            );
-            if (fs.existsSync(oldProfile)) fs.unlinkSync(oldProfile);
+          const newThumbnail = req.files?.thumbnail?.[0];
+          const newProfileImage = req.files?.profileImage?.[0];
+
+          // Convert buffer to base64 data URL and store in MongoDB
+          if (newThumbnail) {
+            const base64 = newThumbnail.buffer.toString("base64");
+            const dataUrl = `data:${newThumbnail.mimetype};base64,${base64}`;
+            resume.thumbnailLink = dataUrl;
           }
-          resume.profileInfo.profilePreviewUrl = `${baseUrl}/uploads/${newProfileImage.filename}`;
-        }
 
-        await resume.save();
-        res.status(200).json({
-          message: " image uploaded successfully ",
-          thumbnailLink: resume.thumbnailLink,
-          profilePreviewUrl: resume.profileInfo.profilePreviewUrl,
-        });
+          if (newProfileImage) {
+            const base64 = newProfileImage.buffer.toString("base64");
+            const dataUrl = `data:${newProfileImage.mimetype};base64,${base64}`;
+            resume.profileInfo.profilePreviewUrl = dataUrl;
+          }
+
+          await resume.save();
+          res.status(200).json({
+            message: "image uploaded successfully",
+            thumbnailLink: resume.thumbnailLink,
+            profilePreviewUrl: resume.profileInfo?.profilePreviewUrl,
+          });
+        } catch (innerError) {
+          console.error("Error processing upload:", innerError);
+          res
+            .status(500)
+            .json({ message: "failed to process uploaded images", error: innerError.message });
+        }
       }
     );
   } catch (error) {
-    console.error("error uploading images:", err);
+    console.error("error uploading images:", error);
     res
       .status(500)
-      .json({ message: "failed to upload images", error: err.message });
+      .json({ message: "failed to upload images", error: error.message });
   }
 };
-

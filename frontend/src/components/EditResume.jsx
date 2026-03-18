@@ -512,46 +512,34 @@ const EditResume = () => {
     try {
       setIsLoading(true)
 
+      let thumbnailDataUrl = ""
+
       const thumbnailElement = thumbnailRef.current
-      if (!thumbnailElement) {
-        throw new Error("Thumbnail element not found")
+      if (thumbnailElement) {
+        try {
+          const fixedThumbnail = fixTailwindColors(thumbnailElement)
+
+          const thumbnailCanvas = await html2canvas(fixedThumbnail, {
+            scale: 0.5,
+            backgroundColor: "#FFFFFF",
+            logging: false,
+          })
+
+          document.body.removeChild(fixedThumbnail)
+          thumbnailDataUrl = thumbnailCanvas.toDataURL("image/png")
+        } catch (canvasError) {
+          console.warn("Could not generate thumbnail:", canvasError)
+        }
       }
 
-      const fixedThumbnail = fixTailwindColors(thumbnailElement)
-
-      const thumbnailCanvas = await html2canvas(fixedThumbnail, {
-        scale: 0.5,
-        backgroundColor: "#FFFFFF",
-        logging: false,
-      })
-
-      document.body.removeChild(fixedThumbnail)
-
-      const thumbnailDataUrl = thumbnailCanvas.toDataURL("image/png")
-      const thumbnailFile = dataURLtoFile(
-        thumbnailDataUrl,
-        `thumbnail-${resumeId}.png`
-      )
-
-      const formData = new FormData()
-      formData.append("thumbnail", thumbnailFile)
-
-      const uploadResponse = await axiosInstance.put(
-        API_PATHS.RESUME.UPLOAD_IMAGES(resumeId),
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      )
-
-      const { thumbnailLink } = uploadResponse.data
-      await updateResumeDetails(thumbnailLink)
+      // Send thumbnail as base64 string directly in the update request
+      await updateResumeDetails(thumbnailDataUrl)
 
       toast.success("Resume Updated Successfully")
       navigate("/dashboard")
     } catch (error) {
-      console.error("Error Uploading Images:", error)
-      toast.error("Failed to upload images")
+      console.error("Error saving resume:", error)
+      toast.error("Failed to save resume")
     } finally {
       setIsLoading(false)
     }
