@@ -410,6 +410,37 @@ export const ProjectDetailForm = ({
   addArrayItem,
   removeArrayItem
 }) => {
+  const [loadingIndex, setLoadingIndex] = React.useState(null);
+
+  const handleAiEnhance = async (index, project) => {
+    if (!project.description?.trim()) return;
+    setLoadingIndex(index);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:4000/api/ai/enhance-project",
+        {
+          description: project.description,
+          title: project.title || "",
+        },
+        {
+          timeout: 60000,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.data?.description) {
+        updateArrayItem(index, "description", response.data.description);
+      }
+    } catch (error) {
+      console.error("AI Enhance Error:", error);
+    } finally {
+      setLoadingIndex(null);
+    }
+  };
+
   return (
     <div className={projectDetailStyles.container}>
       <h2 className={projectDetailStyles.heading}>Projects</h2>
@@ -428,9 +459,30 @@ export const ProjectDetailForm = ({
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-bold text-slate-700 mb-3">
-                  Description
-                </label>
+                <div className="flex items-center justify-between mb-3">
+                  <label className="block text-sm font-bold text-slate-700">
+                    Description
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => handleAiEnhance(index, project)}
+                    disabled={loadingIndex === index || !project.description?.trim()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-md"
+                    title="Enhance description with AI"
+                  >
+                    {loadingIndex === index ? (
+                      <>
+                        <Loader2 size={14} className="animate-spin" />
+                        Enhancing...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles size={14} />
+                        AI Enhance
+                      </>
+                    )}
+                  </button>
+                </div>
                 <textarea
                   placeholder="Short description about the project"
                   className={projectDetailStyles.textarea}
@@ -564,6 +616,38 @@ export const WorkExperienceForm = ({
   addArrayItem,
   removeArrayItem
 }) => {
+  const [loadingIndex, setLoadingIndex] = React.useState(null);
+
+  const handleAiEnhance = async (index, experience) => {
+    if (!experience.description?.trim()) return;
+    setLoadingIndex(index);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:4000/api/ai/enhance-experience",
+        {
+          description: experience.description,
+          role: experience.role || "",
+          company: experience.company || "",
+        },
+        {
+          timeout: 60000,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.data?.description) {
+        updateArrayItem(index, "description", response.data.description);
+      }
+    } catch (error) {
+      console.error("AI Enhance Error:", error);
+    } finally {
+      setLoadingIndex(null);
+    }
+  };
+
   return (
     <div className={workExperienceStyles.container}>
       <h2 className={workExperienceStyles.heading}>Work Experience</h2>
@@ -605,9 +689,30 @@ export const WorkExperienceForm = ({
               />
             </div>
             <div className="mt-6">
-              <label className="block text-sm font-bold text-slate-700 mb-3">
-                Description
-              </label>
+              <div className="flex items-center justify-between mb-3">
+                <label className="block text-sm font-bold text-slate-700">
+                  Description
+                </label>
+                <button
+                  type="button"
+                  onClick={() => handleAiEnhance(index, experience)}
+                  disabled={loadingIndex === index || !experience.description?.trim()}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-md"
+                  title="Enhance description with AI"
+                >
+                  {loadingIndex === index ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      Enhancing...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles size={14} />
+                      AI Enhance
+                    </>
+                  )}
+                </button>
+              </div>
               <textarea
                 placeholder="What did you do in this role?"
                 className={workExperienceStyles.textarea}
