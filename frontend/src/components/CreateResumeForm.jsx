@@ -41,21 +41,32 @@ const CreateResumeForm = () => {
   }
 
   return (
-    <div className=' w-full max-w-md p-8 bg-white rounded-2xl border border-gray-100 shadow-lg'>
-      <h3 className='text-2xl font-bold text-gray-900 mb-2'> Create New Resume</h3>
-      <p className='to-gray-600 mb-8'>Give your resume a title to get started. You can customise everything later.</p>
+    <div className='w-full'>
+      <div className="mb-6 mt-2">
+        <p className='text-gray-400 font-medium'>Give your resume a title to get started. You can customise everything later.</p>
+      </div>
 
-      <form onSubmit={handleCreateResume}>
-        <Input value={title} onChange={({target}) => setTitle(target.value)}
-        label='Resume Title' placeholder='e.g., John Doe - Software Engineer' type='text' />
-        {error && <p className='text-red-500 text-sm mb-4 '> {error}</p>}
+      <form onSubmit={handleCreateResume} className="space-y-6">
+        <Input 
+          value={title} 
+          onChange={({target}) => setTitle(target.value)}
+          label='Resume Title' 
+          placeholder='e.g., Software Engineer' 
+          type='text' 
+        />
+        {error && (
+          <p className='text-red-400 text-sm font-medium bg-red-950/50 border border-red-800/50 px-4 py-3 rounded-xl mb-4'>
+            {error}
+          </p>
+        )}
 
-        <button type='submit' className=' w-full py-3 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black 
-        rounded-2xl hover:scale-105 hover:shadow-xl hover:shadow-rose-200 transition-all'>
+        <button 
+          type='submit' 
+          className='w-full py-4 bg-gradient-to-r from-red-600 to-amber-500 text-white font-black text-lg rounded-2xl hover:scale-105 hover:shadow-xl hover:shadow-red-500/30 transition-all'
+        >
           Create Resume
         </button>
       </form>
-      
     </div>
   )
 }
