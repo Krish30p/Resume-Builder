@@ -453,7 +453,7 @@ export const infoStyles = {
   certContainer: "mb-4",
   certTitle: "text-base font-semibold text-gray-900",
   certRow: "flex items-center gap-2 mt-1",
-  certYear: bgColor => `text-xs font-bold text-white px-3 py-1 rounded-lg`,
+  certYear: bgColor => `text-xs font-bold text-black px-3 py-1 rounded-lg`,
   certIssuer: "text-sm text-gray-600 font-medium",
 
   // ContactInfo
