@@ -1,7 +1,10 @@
 "use client";
+import React from "react";
 import Input from "../components/Input";
 import { RatingInput } from "./ResumeSection";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Sparkles, Loader2 } from "lucide-react";
+import axios from "axios";
+import { API_PATHS } from "../utils/apiPath";
 import {
   commonStyles,
   additionalInfoStyles,
@@ -314,6 +317,38 @@ export const EducationDetailsForm = ({
 
 // ProfileInfoForm Component
 export const ProfileInfoForm = ({ profileData, updateSection }) => {
+  const [isAiLoading, setIsAiLoading] = React.useState(false);
+
+  const handleAiEnhance = async () => {
+    if (!profileData.summary?.trim()) return;
+    setIsAiLoading(true);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:4000/api/ai/generate-summary",
+        {
+          summary: profileData.summary,
+          designation: profileData.designation || "",
+          fullName: profileData.fullName || "",
+        },
+        {
+          timeout: 60000,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.data?.summary) {
+        updateSection("summary", response.data.summary);
+      }
+    } catch (error) {
+      console.error("AI Summary Error:", error);
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
   return (
     <div className={profileInfoStyles.container}>
       <h2 className={profileInfoStyles.heading}>Personal Information</h2>
@@ -331,9 +366,30 @@ export const ProfileInfoForm = ({ profileData, updateSection }) => {
           onChange={({ target }) => updateSection("designation", target.value)}
         />
         <div>
-          <label className="block text-sm font-bold text-slate-700 mb-3">
-            Summary
-          </label>
+          <div className="flex items-center justify-between mb-3">
+            <label className="block text-sm font-bold text-slate-700">
+              Summary
+            </label>
+            <button
+              type="button"
+              onClick={handleAiEnhance}
+              disabled={isAiLoading || !profileData.summary?.trim()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all duration-200 bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-md"
+              title="Enhance summary with AI"
+            >
+              {isAiLoading ? (
+                <>
+                  <Loader2 size={14} className="animate-spin" />
+                  Enhancing...
+                </>
+              ) : (
+                <>
+                  <Sparkles size={14} />
+                  AI Enhance
+                </>
+              )}
+            </button>
+          </div>
           <textarea
             placeholder="Write a brief professional summary about yourself"
             className={profileInfoStyles.textarea}

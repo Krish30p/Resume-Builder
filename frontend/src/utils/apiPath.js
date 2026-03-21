@@ -19,5 +19,8 @@ export const API_PATHS =  {
     },
     image:{
         UPLOAD_IMAGE: `/api/auth/upload-image`
+    },
+    AI:{
+        GENERATE_SUMMARY: '/api/ai/generate-summary'
     }
 }
