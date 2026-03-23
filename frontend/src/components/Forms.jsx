@@ -4,7 +4,7 @@ import Input from "../components/Input";
 import { RatingInput } from "./ResumeSection";
 import { Plus, Trash2, Sparkles, Loader2 } from "lucide-react";
 import axios from "axios";
-import { API_PATHS } from "../utils/apiPath";
+import { API_PATHS, BASE_URL } from "../utils/apiPath";
 import {
   commonStyles,
   additionalInfoStyles,
@@ -325,7 +325,7 @@ export const ProfileInfoForm = ({ profileData, updateSection }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:4000/api/ai/generate-summary",
+        `${BASE_URL}${API_PATHS.AI.GENERATE_SUMMARY}`,
         {
           summary: profileData.summary,
           designation: profileData.designation || "",
@@ -418,7 +418,7 @@ export const ProjectDetailForm = ({
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:4000/api/ai/enhance-project",
+        `${BASE_URL}${API_PATHS.AI.ENHANCE_PROJECT}`,
         {
           description: project.description,
           title: project.title || "",
@@ -624,7 +624,7 @@ export const WorkExperienceForm = ({
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:4000/api/ai/enhance-experience",
+        `${BASE_URL}${API_PATHS.AI.ENHANCE_EXPERIENCE}`,
         {
           description: experience.description,
           role: experience.role || "",
